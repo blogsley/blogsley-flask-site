@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>Argon Dashboard - Coded in Flask</title>
+    <meta name="description" content="Open-Source Admin Dashboard coded in Flask Microfremwork.">
+
+    {% include 'includes/header.html' %}
+
+  </head>
+
+<body class="bg-default">
+
+  <div class="main-content">
+
+    {% include 'includes/auth-navigation.html' %}
+
+    {% include 'includes/auth-header.html' %}
+
+    {{ content | safe }}
+
+  </div>
+  
+  {% include 'includes/auth-footer.html' %}
+  
+  {% include 'includes/scripts.html' %}
+  
+</body>
+
+</html>

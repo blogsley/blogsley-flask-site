@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {% block head %}
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {% block styles %}
+  <link href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+  {% endblock %}
+
+  <title>BLOGSLEY</title>
+  {% endblock %}
+
+</head>
+
+<body>
+  {% include 'includes/navbar.html' %}
+
+  <div class="container wrapper" style="padding: 0px; height: 100%;">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <main class="site-main">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>Source code licensed under MIT. Website content licensed under CC ANS 4.0.</p>
+    </div>
+  </footer>
+  {% block scripts %}
+  <script src="/static/js/main.js"></script>
+  {% endblock %}
+</body>
+
+</html>
