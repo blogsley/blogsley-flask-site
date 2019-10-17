@@ -20,12 +20,12 @@ class UpdatePost(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
         title = graphene.String()
-        summary = graphene.String()
+        model = graphene.String()
         body = graphene.String()
 
     ok = graphene.Boolean()
 
-    def mutate(self, info, id, title, summary, body):
+    def mutate(self, info, id, title, model, body):
         # get the JWT
         token = decode_auth_token(info.context)
         print(token)
@@ -33,7 +33,7 @@ class UpdatePost(graphene.Mutation):
         post = graphene.Node.get_node_from_global_id(info, id)
         print(post)
         post.title = title
-        post.summary = summary
+        post.model = model
         post.body = body
         db.session.commit()
         ok = True
@@ -43,19 +43,19 @@ class UpdatePost(graphene.Mutation):
 class CreatePost(graphene.Mutation):
     class Arguments:
         title = graphene.String()
-        summary = graphene.String()
+        model = graphene.String()
         body = graphene.String()
         owner_id = graphene.ID()
 
     id = graphene.ID()
 
-    def mutate(self, info, title, summary, body):
+    def mutate(self, info, title, model, body):
         # get the JWT
         user = load_user(info)
         user_id = user.id
         print(user)
         # post = Post.query.get(id)
-        post = Post(title=title, summary=summary, body=body, owner_id=user_id)
+        post = Post(title=title, model=model, body=body, owner_id=user_id)
         db.session.add(post)
         db.session.commit()
         # db.session.flush()

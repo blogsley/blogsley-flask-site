@@ -6,7 +6,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     slug = db.Column(db.String(255))
-    summary = db.Column(db.Text)
+    model = db.Column(db.Text)
     cover = db.Column(db.String(255))
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())

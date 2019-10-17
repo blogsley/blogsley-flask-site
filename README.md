@@ -27,6 +27,14 @@
         pip install -r requirements.txt
 
 
+## PostgreSql (optional)
+        sudo -u postgres -i
+        psql
+        postgres=# createdb blogsleyflask;
+        postgres-# createuser blogsleyflask;
+        postgres-# alter user blogsleyflask with encrypted password 'blogsleyflask';
+        postgres-# grant all privileges on database blogsleyflask to blogsleyflask;
+
 ## Development
 
 1. Activate the virtual environment, if not already active:
