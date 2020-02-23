@@ -1,6 +1,7 @@
 import json
 import graphene
 from graphene import relay
+from graphql_relay import to_global_id
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from blogsley import db
 from blogsley.models.users import User
@@ -13,10 +14,15 @@ class UserNode(SQLAlchemyObjectType):
         model = User
         interfaces = (relay.Node, )
 
-
 class UserConnection(relay.Connection):
     class Meta:
         node = UserNode
+
+class UserInput(graphene.InputObjectType):
+    username = graphene.String()
+    email = graphene.String()
+    first_name = graphene.String()
+    last_name = graphene.String()
 
 class Login(graphene.Mutation):
     class Arguments:
@@ -25,6 +31,7 @@ class Login(graphene.Mutation):
 
     token = graphene.String()
 
+    @staticmethod
     def mutate(self, info, username, password):
         print('Login')
         if not username:
@@ -46,52 +53,73 @@ class Login(graphene.Mutation):
 
 class CreateUser(graphene.Mutation):
     class Arguments:
-        username = graphene.String()
-        email = graphene.String()
+        data = UserInput(required=True)
 
     id = graphene.ID()
 
-    def mutate(self, info, username, email):
+    @staticmethod
+    def mutate(self, info, data=None):
         print('CreateUser')
         user = User(
-            username='joe',
-            first_name='Joe',
-            last_name='Jackson',
-            email='joe@example.com',
-            role='Reader',
-            about_me='I am a Reader'
+            username=data.username,
+            email=data.email,
+            first_name=data.first_name,
+            last_name=data.last_name,
+            # role='Reader',
+            # about_me='I am a Reader'
         )
-        user.set_password(password)
-        db.session.add(u)
+        # user.set_password(password)
+        db.session.add(user)
         db.session.commit()
-
-        return user.id
+        db.session.refresh(user)
+        id = to_global_id(UserNode._meta.name, user.id)
+        return CreateUser(id=id)
 
 class UpdateUser(graphene.Mutation):
     class Arguments:
-        id = graphene.ID(required=True)
-        username = graphene.String()
-        email = graphene.String()
+        _id = graphene.ID(required=True)
+        data = UserInput(required=True)
 
     ok = graphene.Boolean()
 
-    def mutate(self, info, id, username, email):
+    @staticmethod
+    def mutate(self, info, _id, data=None):
         print('UpdateUser')
-        print(id)
+        print(_id)
+        user = graphene.Node.get_node_from_global_id(info, _id)
+        print(user)
+        user.username = data.username
+        user.email = data.email
+        user.save()
+        ok = True
+
+        return ok
+
+class DeleteUser(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+
+    ok = graphene.Boolean()
+
+    @staticmethod
+    def mutate(self, info, id):
+        # get the JWT
+        token = decode_auth_token(info.context)
+        print(token)
         user = graphene.Node.get_node_from_global_id(info, id)
         print(user)
-        user.username = username
-        user.email = email
-        user.save()
+        db.session.delete(user)
+        db.session.commit()
         ok = True
 
         return ok
 
 class MyMutations(graphene.ObjectType):
     log_in = Login.Field()
+    create_user = CreateUser.Field()
     update_user = UpdateUser.Field()
+    delete_user = DeleteUser.Field()
 
 class Query(graphene.ObjectType):
-    # node = relay.Node.Field()
     user = relay.Node.Field(UserNode)
     all_users = SQLAlchemyConnectionField(UserConnection)

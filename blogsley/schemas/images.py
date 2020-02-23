@@ -11,26 +11,28 @@ class ImageNode(SQLAlchemyObjectType):
         model = Image
         interfaces = (relay.Node, )
 
-
 class ImageConnection(relay.Connection):
     class Meta:
         node = ImageNode
 
+class ImageInput(graphene.InputObjectType):
+    title = graphene.String()
+    filename = graphene.String()
+    src = graphene.String()
+
 class CreateImage(graphene.Mutation):
     class Arguments:
-        title = graphene.String()
-        path = graphene.String()
-        owner_id = graphene.ID()
+        data = ImageInput(required=True)
 
     id = graphene.ID()
 
-    def mutate(self, info, title, summary, body):
-        # get the JWT
+    @staticmethod
+    def mutate(self, info, data=None):
         user = load_user(info)
         user_id = user.id
         print(user)
         # post = Post.query.get(id)
-        image = Image(title=title, path=path, owner_id=user_id)
+        image = Image(title=data.title, filename=data.filename, src=data.src, owner_id=user_id)
         db.session.add(image)
         db.session.commit()
         # db.session.flush()
@@ -43,15 +45,15 @@ class CreateImage(graphene.Mutation):
 class UpdateImage(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
-        title = graphene.String()
+        data = ImageInput(required=True)
 
     ok = graphene.Boolean()
 
-    def mutate(self, info, id, title):
+    @staticmethod
+    def mutate(self, info, id=None, data=None):
         # get the JWT
         token = decode_auth_token(info.context)
         print(token)
-        # post = Post.query.get(id)
         image = graphene.Node.get_node_from_global_id(info, id)
         print(image)
         image.title = title
@@ -66,6 +68,7 @@ class DeleteImage(graphene.Mutation):
 
     ok = graphene.Boolean()
 
+    @staticmethod
     def mutate(self, info, id):
         # get the JWT
         token = decode_auth_token(info.context)

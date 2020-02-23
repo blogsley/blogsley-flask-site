@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6fa5c47ee730
+Revision ID: 950d13007eb5
 Revises: 
-Create Date: 2019-10-15 22:54:42.989484
+Create Date: 2020-01-30 21:33:19.211439
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6fa5c47ee730'
+revision = '950d13007eb5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,18 +35,20 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=True),
     sa.Column('filename', sa.String(length=100), nullable=True),
+    sa.Column('src', sa.String(length=255), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
-    sa.Column('uploaded_by', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['uploaded_by'], ['user.id'], ),
+    sa.Column('owner_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_image_timestamp'), 'image', ['timestamp'], unique=False)
     op.create_table('post',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=255), nullable=True),
-    sa.Column('slug', sa.String(length=255), nullable=True),
+    sa.Column('status', sa.String(length=16), nullable=True),
+    sa.Column('title', sa.String(length=256), nullable=True),
+    sa.Column('slug', sa.String(length=256), nullable=True),
     sa.Column('model', sa.Text(), nullable=True),
-    sa.Column('cover', sa.String(length=255), nullable=True),
+    sa.Column('cover', sa.String(length=256), nullable=True),
     sa.Column('body', sa.Text(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
     sa.Column('owner_id', sa.Integer(), nullable=True),

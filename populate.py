@@ -9,7 +9,7 @@ u = User(username='admin',
   role='Admin',
   about_me='I am the Admin'
 )
-u.set_password('x')
+u.set_password('admin')
 db.session.add(u)
 db.session.commit()
 

@@ -1,0 +1,9 @@
+find . -path "*/migrations/versions/*.py" -not -path "env/*" -not -name "__init__.py" -delete
+find . -path "*/migrations/versions/*.pyc"  -not -path "env/*" -delete
+
+rm app.db
+
+flask db migrate
+flask db upgrade
+
+python populate.py
