@@ -24,16 +24,22 @@ class UserInput(graphene.InputObjectType):
     first_name = graphene.String()
     last_name = graphene.String()
 
+class LoginInput(graphene.InputObjectType):
+    username = graphene.String()
+    password = graphene.String()
+
 class Login(graphene.Mutation):
     class Arguments:
-        username = graphene.String()
-        password = graphene.String()
+        data = LoginInput(required=True)
 
     token = graphene.String()
 
     @staticmethod
-    def mutate(self, info, username, password):
+    def mutate(self, info, data=None):
         print('Login')
+        username=data.username
+        password=data.password
+
         if not username:
             raise Exception('Username missing!')
         if not password:
@@ -115,7 +121,7 @@ class DeleteUser(graphene.Mutation):
         return ok
 
 class MyMutations(graphene.ObjectType):
-    log_in = Login.Field()
+    login = Login.Field()
     create_user = CreateUser.Field()
     update_user = UpdateUser.Field()
     delete_user = DeleteUser.Field()
