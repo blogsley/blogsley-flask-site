@@ -1,4 +1,4 @@
-# Pugsley Lite
+# Blogsley Flask Site :moon:
 
 ## Installation
 
@@ -8,7 +8,7 @@
 
 2. Clone the repository:
 
-        git clone https://github.com/blogsley/blogsley-flask.git
+        git clone https://github.com/blogsley/blogsley-flask-site.git
         
 3. Navigate to the new directory which contains the repository.
 
