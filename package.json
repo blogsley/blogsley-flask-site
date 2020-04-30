@@ -67,7 +67,7 @@
     "@fullcalendar/rrule": "^4.3.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.16.0",
     "quasar": "^1.7.0",
     "rrule": "^2.6.4",
