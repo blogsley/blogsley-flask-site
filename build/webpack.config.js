@@ -5,6 +5,10 @@ const utils = require('./utils')
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+const STATIC_PATH = 'share/blogsley-flask-site/static/'
+// const PUBLIC_PATH = '/static/'
+const PUBLIC_PATH = '/'
+
 module.exports = {
   watch: true,
   mode : devMode ? 'development' : 'production',
@@ -17,12 +21,12 @@ module.exports = {
     dashboard: './dashboard.js',
     chart: './chart.js',
     postedit: './postedit.js',
-    blocksley: './blocksley.js'
+    // blocksley: './blocksley.js'
   },
   output: {
     filename: 'js/[name].js',
-    path: utils.resolve('blogsley/static'),
-    publicPath: '/static/'
+    path: utils.resolve(STATIC_PATH),
+    publicPath: PUBLIC_PATH
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -45,8 +49,8 @@ module.exports = {
             { 
               loader: MiniCssExtractPlugin.loader,
               options: {
-                outputPath: utils.resolve('blogsley/static/css'),
-                publicPath: utils.resolve('blogsley/static/css')
+                outputPath: utils.resolve(`${STATIC_PATH}css`),
+                publicPath: utils.resolve(`${PUBLIC_PATH}css`)
               }
             },
             { loader: 'css-loader', options: { sourceMap: true } },
@@ -64,7 +68,7 @@ module.exports = {
             options: {
               limit: 64,
               outputPath: 'fonts',
-              publicPath: '/static/fonts'
+              publicPath: '/fonts'
             }
           }
         ]

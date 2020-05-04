@@ -1,7 +1,7 @@
 {
-  "name": "blogsley-flask",
+  "name": "blogsley-flask-site",
   "version": "1.0.0",
-  "description": "## Installation",
+  "description": "Blogsley Flask Site",
   "main": "index.js",
   "scripts": {
     "newenv": "python3 -m venv env",
@@ -19,19 +19,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blogsley/blogsley-flask.git"
+    "url": "git+https://github.com/blogsley/blogsley-flask-site.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/blogsley/blogsley-flask/issues"
+    "url": "https://github.com/blogsley/blogsley-flask-site/issues"
   },
-  "homepage": "https://github.com/blogsley/blogsley-flask#readme",
+  "homepage": "https://github.com/blogsley/blogsley-flask-site#readme",
   "devDependencies": {
     "@babel/core": "^7.8.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.0",
-    "@blocksley/applet": "^0.1.18-alpha.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-brands-svg-icons": "^5.12.0",
     "@fortawesome/free-regular-svg-icons": "^5.12.0",
@@ -67,8 +66,8 @@
     "@fullcalendar/rrule": "^4.3.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.16.0",
+    "jquery": "^3.5.0",
+    "popper.js": "^1.16.1",
     "quasar": "^1.7.0",
     "rrule": "^2.6.4",
     "vue": "^2.6.11",

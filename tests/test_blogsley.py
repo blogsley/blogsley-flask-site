@@ -1,4 +1,4 @@
-from blogsley import __version__
+from blogsley_site import __version__
 
 
 def test_version():

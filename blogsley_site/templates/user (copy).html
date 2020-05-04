@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="row postcard-header">
+    <div class="col-12 col-md-8">
+        <div>
+            <img class="avatar" src="{{ user.avatar(70) }}">
+            <div class="postcard-intro">
+                <h1>{{ user.full_name }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        {% if user == current_user %}
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn btn-secondary" href="{{ url_for('root.edit_profile') }}">{{ _('Edit your profile') }}</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+<h2>Posts</h2>
+<div class="list-group">
+    {% for post in posts %}
+    {% include 'includes/post_item.html' %}
+    {% endfor %}
+</div>
+{% endblock %}

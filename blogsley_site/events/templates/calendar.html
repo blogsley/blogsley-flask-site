@@ -1,0 +1,16 @@
+{% extends "layouts/events.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/calendar.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+<div id="calendar"></div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
+{% endblock %}

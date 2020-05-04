@@ -1,0 +1,19 @@
+{% extends "layouts/base.html" %}
+
+{% block head %}
+{{ super() }}
+  <link href="{{ url_for('static', filename='css/events.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+<ul class="list-group list-group-horizontal" style="padding-bottom:16px">
+  <li class="list-group-item"><a href="{{url_for('events.index')}}"><i class="fas fa-list mx-2"></i>List</a></li>
+  <li class="list-group-item"><a href="{{url_for('events.calendar')}}"><i class="far fa-calendar mx-2"></i>Calendar</a></li>
+</ul>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}
