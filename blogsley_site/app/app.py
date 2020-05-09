@@ -44,6 +44,9 @@ class BlogsleyFlaskSite(BlogsleyFlask):
         from flask_mail import Mail
         __blogsley__.mail = mail = Mail(app)
 
+        from blogsley_flask.iam import IAM
+        __blogsley__.iam = iam = IAM(app)
+
         from flask_babel import Babel, lazy_gettext as _l
         __blogsley__.babel = babel = Babel(app)
 
